@@ -10,18 +10,19 @@ jingles = playlist(mode="randomize", "/media/Jingles_IvanLoscher")
 radio_musica = rotate(weights=[1, 1, 1], [bloque1, bloque2, bloque3])
 radio_completa = rotate(weights=[3, 1], [radio_musica, jingles])
 
-# 3. Fallback seguro
+# 3. Fallback seguro en caso de carpetas vacías
 radio_segura = fallback(track_sensitive=false, [radio_completa, sine()])
 fuente_final = mksafe(radio_segura)
 
-# 4. Conexión a Icecast vía protocolo HTTP directo en Render
+# 4. Conexión limpia a Icecast
 output.icecast(
-  %mp3,
+  %mp3(bitrate=128),
   host = "stereos1090-radio.onrender.com",
   port = 80,
-  protocol = "http",
-  password = "TU_CONTRASEÑA_DE_ICECAST", # Reemplaza por tu contraseña real de SOURCE
+  password = "Stereos1090Pass",
   mount = "/live",
   name = "Stereos 1090 - La Mejor Música del Planeta",
-  radio
+  description = "Transmisión en vivo 24/7",
+  url = "https://radio.stereos1090.com",
+  fuente_final
 )
