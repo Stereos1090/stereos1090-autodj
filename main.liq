@@ -15,13 +15,13 @@ radio_segura = fallback(track_sensitive=false, [radio_completa, sine()])
 fuente_final = mksafe(radio_segura)
 
 # 4. Conexión a Icecast vía protocolo HTTP directo en Render
-output.icecast(%mp3(bitrate=128),
+output.icecast(
+  %mp3,
   host = "stereos1090-radio.onrender.com",
   port = 80,
-  password = "Stereos1090Pass",
+  protocol = "http",
+  password = "TU_CONTRASEÑA_DE_ICECAST", # Reemplaza por tu contraseña real de SOURCE
   mount = "/live",
   name = "Stereos 1090 - La Mejor Música del Planeta",
-  description = "Transmisión en vivo 24/7",
-  url = "https://radio.stereos1090.com",
-  fuente_final
+  radio
 )
